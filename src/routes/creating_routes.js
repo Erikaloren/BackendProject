@@ -1,8 +1,12 @@
 import { Router } from "express";
 import creatingDrivers from "../drivers/creating_drivers.js";
 
-const paymentRoutes = Router();
+const creatingRoutes = Router();
 
-paymentRoutes.post('/', creating_drivers.createPayment);
+creatingRoutes.post('/', creatingDrivers.createPayment);
+creatingRoutes.get('/:id', creatingDrivers.Read_one_Payment);
+creatingRoutes.get('/', creatingDrivers.listPayments);
+creatingRoutes.put('/:id', creatingDrivers.updatePayment);
+creatingRoutes.delete('/:id', creatingDrivers.deletePayment);
 
-export default creating_routes;
+export default creatingRoutes;
