@@ -1,5 +1,5 @@
 # My first Backend Project
----
+
 Hi everyone! I'm glad to present you all my first backend project. Here you'll find some APIs with different functions (GET, POST, PUT and DELETE). In this case, you'll be able to create payments and get a payment ID for each one. Once you've got it, you can find, update and delete the payment (list all payments is also possible). 
 
 I had this idea because of my last job. As you may know, I worked for Stripe 4 years long as a customer service agent, there I learned some basic things about programming and also got interested about the Stripe API. Now I'm really excited because I've learned how the APIs work. 
@@ -45,7 +45,7 @@ In order to create this API, I used Node.js, Express and Mongoose.
         "Billing_Address": "",
         "Shipping_Address": "",
         "Phone_number": 
-    }
+         }
 
 Bear in mind that you should use a Json format and fields like payment amount and phone number are numbers, so you don't need to use the "" since those are intended for strings.
 
