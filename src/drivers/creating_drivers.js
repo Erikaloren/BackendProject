@@ -6,10 +6,8 @@ const creatingDrivers = {
       try {
         const newPayment = new creating_models(request.body);
   
-        // Access the date string from the request body
         const dateString = request.body.date;
-  
-        // Convert the date string to ISO 8601 format
+
         let formattedDate;
         try {
           const dateObject = new Date(dateString);
@@ -24,23 +22,19 @@ const creatingDrivers = {
             message: "Invalid date format. Please use YYYY-MM-DD format.",
             info: null,
           });
-          return;  // Exit the function if date parsing fails
+          return; 
         }
   
-        // Assign the formatted date to the newPayment object (assuming there's a date property)
         newPayment.date = formattedDate;
 
         const taxAppliedValue = request.body.tax_applied;
 
-      // Validate the value (optional - assuming "yes" or "no" are expected)
       if (taxAppliedValue !== 'yes' && taxAppliedValue !== 'no') {
         throw new Error("Invalid value for tax_applied. Please use 'yes' or 'no'.");
       }
 
-      // Assign the mapped boolean value to the newPayment object
       newPayment.tax_applied = taxAppliedValue === 'yes';
 
-  
         const paymentCreated = await newPayment.save();
         if (paymentCreated._id) {
           answer.json({
@@ -61,9 +55,7 @@ const creatingDrivers = {
 
     Read_one_Payment: async (request, answer) => {
         try {
-          const paymentId = request.params.id; // Assuming ID is in the URL parameter
-    
-          // Validate the ID format (optional)
+          const paymentId = request.params.id; 
           if (!mongoose.Types.ObjectId.isValid(paymentId)) {
             throw new Error("Invalid payment ID format.");
           }
@@ -82,7 +74,7 @@ const creatingDrivers = {
           answer.json({
             answer: "found",
             message: "Payment details retrieved successfully.",
-            info: foundPayment, // Return the entire payment object
+            info: foundPayment, 
           });
         } catch (error) {
           answer.json({
@@ -96,12 +88,12 @@ const creatingDrivers = {
 
       listPayments: async (request, answer) => {
         try {
-          const allPayments = await creating_models.find({}); // Find all payments
+          const allPayments = await creating_models.find({}); 
     
           answer.json({
             answer: "found",
             message: "List of all payments retrieved successfully.",
-            info: allPayments, // Return an array of all payment objects
+            info: allPayments, 
           });
         } catch (error) {
           answer.json({
@@ -115,16 +107,14 @@ const creatingDrivers = {
 
       updatePayment: async (request, answer) => {
         try {
-          const paymentId = request.params.id; // Assuming ID is in the URL parameter
-          const updateData = request.body; // Update data is sent in the request body
+          const paymentId = request.params.id;
+          const updateData = request.body;
     
-          // Validate the ID format (optional)
           if (!mongoose.Types.ObjectId.isValid(paymentId)) {
             throw new Error("Invalid payment ID format.");
           }
-    
-          // Validate update data (optional) - customize based on your schema
-          if (!updateData.hasOwnProperty('payment_amount') || // Check for specific fields
+
+          if (!updateData.hasOwnProperty('payment_amount') || 
               !updateData.hasOwnProperty('tax_applied')) {
             throw new Error("Missing required update data.");
           }
@@ -132,7 +122,7 @@ const creatingDrivers = {
           const updatedPayment = await creating_models.findByIdAndUpdate(
             paymentId,
             updateData,
-            { new: true } // Return the updated document
+            { new: true } 
           );
     
           if (!updatedPayment) {
@@ -161,9 +151,8 @@ const creatingDrivers = {
 
       deletePayment: async (request, answer) => {
         try {
-          const paymentId = request.params.id; // Assuming ID is in the URL parameter
+          const paymentId = request.params.id; 
     
-          // Validate the ID format (optional)
           if (!mongoose.Types.ObjectId.isValid(paymentId)) {
             throw new Error("Invalid payment ID format.");
           }
@@ -182,7 +171,7 @@ const creatingDrivers = {
           answer.json({
             answer: "deleted",
             message: "Payment deleted successfully.",
-            info: null, // No additional info needed for deletion
+            info: null, 
           });
         } catch (error) {
           answer.json({
