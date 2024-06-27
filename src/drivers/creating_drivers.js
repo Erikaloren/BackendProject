@@ -6,7 +6,7 @@ const creatingDrivers = {
       try {
         const newPayment = new creating_models(request.body);
   
-        const dateString = request.body.date;
+        const dateString = request.body.expiration_date;
 
         let formattedDate;
         try {
@@ -26,14 +26,6 @@ const creatingDrivers = {
         }
   
         newPayment.date = formattedDate;
-
-        const taxAppliedValue = request.body.tax_applied;
-
-      if (taxAppliedValue !== 'yes' && taxAppliedValue !== 'no') {
-        throw new Error("Invalid value for tax_applied. Please use 'yes' or 'no'.");
-      }
-
-      newPayment.tax_applied = taxAppliedValue === 'yes';
 
         const paymentCreated = await newPayment.save();
         if (paymentCreated._id) {
